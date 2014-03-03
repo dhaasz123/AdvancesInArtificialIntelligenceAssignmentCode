@@ -118,22 +118,24 @@ public class Algorithm {
      */
     private void mutation(Individual indiv) {
         int reduction = 0; //to ensure step size rate isn't initalised along with the bounds/class values
+        double localMutationRate = GeneticAlgorithmConstants.MUTATION_RATE;
         if (GeneticAlgorithmConstants.COEVOLVE_STEP_SIZE) {
             reduction = 1;
             //evolve step size before evolving other genes
-            double newStepSize = evolveStepSize(indiv.getFGene(indiv.size() - 1));
+            double newStepSize = evolveMutationRate(indiv.getFGene(indiv.size() - 1));
             indiv.setGene(newStepSize, indiv.size() - 1);
+            localMutationRate = indiv.getFGene(indiv.size() - 1);
         }
         //Loop through genes
         if (GeneticAlgorithmConstants.ISGENERALISING) {
-            if (Math.random() <= GeneticAlgorithmConstants.MUTATION_RATE) {
+            if (Math.random() <= localMutationRate) {
                 indiv.numRules = rand.nextInt(GeneticAlgorithmConstants.MAX_RULE_SET_SIZE)
                         + GeneticAlgorithmConstants.MIN_RULE_SET_SIZE;
             }
         }
         for (int i = 0; i < indiv.size() - reduction; i++) {
             if (GeneticAlgorithmConstants.ISFLOAT) { //mutate floating point genes
-                if (Math.random() <= GeneticAlgorithmConstants.MUTATION_RATE) {
+                if (Math.random() <= localMutationRate) {
                     double gene;
                     if (i > 0 && (i % GeneticAlgorithmConstants.VAR_LENGTH == 0)) { //random action value
                         gene = (float) rand.nextInt(2); //0,1
@@ -144,7 +146,7 @@ public class Algorithm {
                     indiv.setGene(gene, i);
                 }
             } else { //mutate integer genes
-                if (Math.random() <= GeneticAlgorithmConstants.MUTATION_RATE) {
+                if (Math.random() <= localMutationRate) {
                     int gene;
                     if (!GeneticAlgorithmConstants.ISGENERALISING) {
                         gene = rand.nextInt(2); //0,1
@@ -263,12 +265,13 @@ public class Algorithm {
      */
     private double getGaussian(double oldGene, Individual indiv) {
         double newGene, variant;
+
         if (GeneticAlgorithmConstants.COEVOLVE_STEP_SIZE) {
-            //use coevolved step size
-            variant = (float) rand.nextGaussian() * indiv.getFGene(indiv.size() - 1); //-1 to accomodate indexes
+            //use evolving step size
+            variant = rand.nextGaussian() * indiv.getFGene(indiv.size() - 1);
         } else {
             //use fixed step size
-            variant = (float) rand.nextGaussian() * GeneticAlgorithmConstants.STANDARD_DEVIATION;
+            variant = rand.nextGaussian() * GeneticAlgorithmConstants.STANDARD_DEVIATION;
         }
 
         if (Math.random() <= 0.5) {
@@ -278,9 +281,9 @@ public class Algorithm {
         }
 
         if (newGene > 1) {
-            newGene = 1.0f; //curtail range if larger than maximun
+            newGene = 1.0; //curtail range if larger than maximun
         } else if (newGene < 0) {
-            newGene = 0.0f; //curtail range if less than minimum
+            newGene = 0.0; //curtail range if less than minimum
         }
 
         return newGene;
@@ -294,18 +297,18 @@ public class Algorithm {
      * @param oldStepSize is the step size to evolve
      * @return the evolved step size as a float
      */
-    private double evolveStepSize(double oldStepSize) {
+    private double evolveMutationRate(double oldRate) {
         double newStepSize;
         //calculate learning rate
-        double learningRate = 1.0;
+        double learningRate = 1.0 / Math.sqrt((double) GeneticAlgorithmConstants.MAX_POPULATION);
 
-        newStepSize = oldStepSize * (Math.exp(learningRate * Math.abs(rand.nextGaussian())));
+        newStepSize = oldRate * (Math.exp(learningRate * rand.nextGaussian()));
 
         //check boundary condition
         if (newStepSize <= 0) {
             newStepSize = 0.01;
-        } else if (newStepSize >= 1) {
-            newStepSize = Math.abs(rand.nextGaussian());
+        } else if (newStepSize > 1) {
+            newStepSize = 1.0;
         }
 
         return newStepSize;

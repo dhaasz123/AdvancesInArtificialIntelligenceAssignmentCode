@@ -88,7 +88,7 @@ public class Rule {
         for (int i = 0; i < floatCondition.length; i = i + 2) {
             int var = i / 2;
 
-            if (variable[var] > floatCondition[i] && variable[var] < floatCondition[i + 1]) {
+            if (variable[var] >= floatCondition[i] && variable[var] <= floatCondition[i + 1]) {
                 continue;
             } else {
                 return false;

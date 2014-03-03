@@ -87,6 +87,7 @@ public class Main {
                     FitnessCalculator.setDataSet(testSet);
                     myPop = algor.evolvePopulation(myPop);
                     System.out.println("Fittest: " + myPop.getFittest().fitness);
+                    System.out.println("Average Fittest: " + myPop.getMeanFitness());
                     System.out.println("Number of Errors: "
                             + (FitnessCalculator.getDataSet().size() - myPop.getFittest().fitness));
                 }
@@ -143,6 +144,7 @@ public class Main {
                     FitnessCalculator.setDataSet(testSet);
                     myPop = algor.evolvePopulation(myPop);
                     System.out.println("Fittest: " + myPop.getFittest().fitness);
+                    System.out.println("Average Fittest: " + myPop.getMeanFitness());
                     System.out.println("Number of Errors: "
                             + (FitnessCalculator.getDataSet().size() - myPop.getFittest().fitness));
                 }
