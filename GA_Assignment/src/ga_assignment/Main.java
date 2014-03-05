@@ -184,7 +184,7 @@ public class Main {
     private static String convertClassLabel(String label) {
         String convertedLabel;
         
-        if (label.equals("M")) {
+        if (label.equals("4")) {
             convertedLabel = "1"; //for Malignant Classification
         } else {
             convertedLabel = "0"; //for Benign Classification
