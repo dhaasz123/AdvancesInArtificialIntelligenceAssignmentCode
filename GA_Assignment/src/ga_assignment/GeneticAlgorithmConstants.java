@@ -7,7 +7,7 @@ package ga_assignment;
 public class GeneticAlgorithmConstants {
     
      //Population and gene setup
-    public static final int NUMBER_OF_GENES = 261; //add a 1 if co-evolving step size mutation
+    public static final int NUMBER_OF_GENES = 260; //add a 1 if co-evolving step size mutation
     public static final int MAX_POPULATION = 100;
     public static final int MAX_GENERATIONS = 1000;
     
@@ -16,7 +16,7 @@ public class GeneticAlgorithmConstants {
     public static final double CROSSOVER_RATE = 0.9;
     public static final double MUTATION_RATE = 0.015;
     public static final boolean ELITISM =true;
-    public static final int TOURNAMENT_SIZE = 5;
+    public static final int TOURNAMENT_SIZE = 10;
     
     //properties regarding the classification of data
     public static final int VAR_LENGTH = 12; //for seperating rule from action value
@@ -31,8 +31,9 @@ public class GeneticAlgorithmConstants {
     
     public static final boolean ISGENERALISING = false; //to take account number of rules when selecting individuals, used for data2.txt only
     public static final boolean SPLIT_DATASET = true; //for training and then test
+    public static final int SIZE_OF_TRAINING_SET = 1000;
     
     //standard deviation for use with guassian function
     public static final float STANDARD_DEVIATION = 0.7f;
-    public static final boolean COEVOLVE_STEP_SIZE = true; //determines whether to use a fixed or evolving step size
+    public static final boolean COEVOLVE_STEP_SIZE = false; //determines whether to use a fixed or evolving step size
 }

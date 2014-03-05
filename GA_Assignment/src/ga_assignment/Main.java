@@ -22,7 +22,7 @@ public class Main {
             ArrayList<Data> dataSet = new ArrayList<Data>();
             ArrayList<Data> trainingSet = new ArrayList<Data>();
             ArrayList<Data> testSet = new ArrayList<Data>();
-
+            
             if (GeneticAlgorithmConstants.ISFLOAT) { //is floating point data
                 while ((line = br.readLine()) != null) {
                     if (line.contains("class")) {
@@ -39,13 +39,13 @@ public class Main {
                         classVariable[i] = floating.floatValue();
                         i++;
                     }
-
+                    
                     String value = line.substring(line.lastIndexOf(" "), line.length()).trim();
                     if (!GeneticAlgorithmConstants.FILE_NAME.contains("data")) { //convert class label to 0/1 for Wisconsin Data Set
                         value = convertClassLabel(value);
                     }
                     Integer classValue = new Integer(value);
-
+                    
                     Data data = new Data(classVariable, classValue);
                     dataSet.add(data);
                 }
@@ -54,7 +54,7 @@ public class Main {
                 if (!GeneticAlgorithmConstants.FILE_NAME.contains("data")) {
                     dataSet = scaleDataSet(dataSet);
                 }
-                
+
                 //optionally split data set
                 if (GeneticAlgorithmConstants.SPLIT_DATASET) {
                     splitDataSet(dataSet, trainingSet, testSet);
@@ -80,7 +80,7 @@ public class Main {
                     if (GeneticAlgorithmConstants.COEVOLVE_STEP_SIZE) {
                         System.out.println("Fittest Step Size: " + myPop.getFittest().getFGene(myPop.getFittest().size() - 1));
                     }
-
+                    
                     myPop = algor.evolvePopulation(myPop);
                 }
                 if (GeneticAlgorithmConstants.SPLIT_DATASET) {
@@ -136,7 +136,7 @@ public class Main {
                         System.out.println("Rule Set: " + myPop.getFittest().matchedRules);
                         System.out.println("Average Rule Size: " + myPop.getMeanRuleSize());
                     }
-
+                    
                     myPop = algor.evolvePopulation(myPop);
                 }
                 //run algorithm on test Set
@@ -163,16 +163,12 @@ public class Main {
      */
     private static void splitDataSet(ArrayList<Data> dataSet, ArrayList<Data> trainingSet,
             ArrayList<Data> testSet) {
-        int counter = 0;
-        int splitThreshold = dataSet.size() / 2;
-
-        for (int i = 0; i < dataSet.size(); i++) {
-            if (counter >= splitThreshold) {
-                testSet.add(dataSet.get(i));
-            } else {
-                trainingSet.add(dataSet.get(i));
-            }
-            counter++;
+        
+        for (int i = 0; i < GeneticAlgorithmConstants.SIZE_OF_TRAINING_SET; i++) {
+            trainingSet.add(dataSet.get(i));
+        }
+        for (int i = GeneticAlgorithmConstants.SIZE_OF_TRAINING_SET; i < dataSet.size(); i++) {
+            testSet.add(dataSet.get(i));
         }
     }
 
@@ -187,25 +183,26 @@ public class Main {
      */
     private static String convertClassLabel(String label) {
         String convertedLabel;
-
+        
         if (label.equals("M")) {
             convertedLabel = "1"; //for Malignant Classification
         } else {
             convertedLabel = "0"; //for Benign Classification
         }
-
+        
         return convertedLabel;
     }
 
     /**
-     * Method to scale the variable data so that each datapoint falls in the 
+     * Method to scale the variable data so that each datapoint falls in the
      * range of 0-1. This makes use of feature scaling.
+     *
      * @param dataSet to scale to appropriate range
      * @return dataSet scaled to the range 0-1
      */
     private static ArrayList<Data> scaleDataSet(ArrayList<Data> dataSet) {
         ArrayList<Data> scaledData = dataSet;
-
+        
         for (int i = 0; i < GeneticAlgorithmConstants.DATA_SIZE; i++) {
             double min = 0.0, max = 0.0;
             boolean first = true;
@@ -228,7 +225,7 @@ public class Main {
                 d.floatVariable[i] = dataPoint; // changed to scaled value for that column
             }
         }
-
+        
         return scaledData;
     }
 
@@ -245,9 +242,9 @@ public class Main {
      */
     private static double runFeatureScaling(double x, double min, double max) {
         double scaledValue;
-
+        
         scaledValue = (x - min) / (max - min);
-
+        
         return scaledValue;
     }
 }
