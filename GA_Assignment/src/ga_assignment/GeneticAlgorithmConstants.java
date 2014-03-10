@@ -8,7 +8,7 @@ public class GeneticAlgorithmConstants {
     
      //Population and gene setup
     public static final int NUMBER_OF_GENES = 380; //add a 1 if co-evolving step size mutation
-    public static final int MAX_POPULATION = 100;
+    public static final int MAX_POPULATION = 60;
     public static final int MAX_GENERATIONS = 1000;
     
     
@@ -20,7 +20,7 @@ public class GeneticAlgorithmConstants {
     
     //properties regarding the classification of data
     public static final int VAR_LENGTH = 18; //for seperating rule from action value
-    public static final int LINE_LENGTH = 18; //for rule creation loop
+    public static final int LINE_LENGTH = 19; //for rule creation loop
     public static final int MAX_RULE_SET_SIZE = 19; 
     public static final int MIN_RULE_SET_SIZE = 2;
     
@@ -29,7 +29,7 @@ public class GeneticAlgorithmConstants {
     public static final boolean ISFLOAT = true;
     public static final int DATA_SIZE = 10; //the amount of float point data values
     
-    public static final boolean ISGENERALISING = false; //to take account number of rules when selecting individuals, used for data2.txt only
+    public static final boolean ISGENERALISING = false; //to take account number of rules when selecting individuals, used for data2.txt only float automatically generalises
     public static final boolean SPLIT_DATASET = true; //for training and then test
     public static final int SIZE_OF_TRAINING_SET = 400;
     

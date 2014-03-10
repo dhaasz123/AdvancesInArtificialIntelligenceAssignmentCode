@@ -67,16 +67,13 @@ public class Main {
                 Population myPop = new Population(true);
                 Algorithm algor = new Algorithm();
                 int generationCount = 0;
+                System.out.println("Generation\tFittest\tMean Fitness\tNumber of Rules\tAverage Number Of Rules");
                 while (generationCount < GeneticAlgorithmConstants.MAX_GENERATIONS) {
                     generationCount++;
-                    System.out.println("Generation: " + generationCount + " Fittest: "
-                            + myPop.getFittest().getFitness());
-                    System.out.println("Total Fitness: "
-                            + myPop.getTotalPopulationFitness() + " Mean Fitness: "
-                            + myPop.getMeanFitness());
-                    System.out.println("Rule Size: " + myPop.getFittest().matchedRules.size());
+                    System.out.println(generationCount + "\t" + myPop.getFittest().getFitness() + 
+                            "\t" + myPop.getMeanFitness() + "\t" + + myPop.getFittest().matchedRules.size()
+                            + "\t" + myPop.getMeanRuleSize());
                     System.out.println("Rule Set: " + myPop.getFittest().matchedRules);
-                    System.out.println("Average Rule Size: " + myPop.getMeanRuleSize());
                     if (GeneticAlgorithmConstants.COEVOLVE_STEP_SIZE) {
                         System.out.println("Fittest Step Size: " + myPop.getFittest().getFGene(myPop.getFittest().size() - 1));
                     }
