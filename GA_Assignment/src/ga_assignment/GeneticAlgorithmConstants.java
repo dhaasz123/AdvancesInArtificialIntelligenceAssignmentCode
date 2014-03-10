@@ -34,6 +34,6 @@ public class GeneticAlgorithmConstants {
     public static final int SIZE_OF_TRAINING_SET = 400;
     
     //standard deviation for use with guassian function
-    public static final float STANDARD_DEVIATION = 0.7f;
+    public static final float STEP_SIZE = 0.7f;
     public static final boolean COEVOLVE_STEP_SIZE = false; //determines whether to use a fixed or evolving step size
 }

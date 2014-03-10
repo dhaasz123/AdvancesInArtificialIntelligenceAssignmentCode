@@ -73,9 +73,9 @@ public class Main {
                     System.out.println(generationCount + "\t" + myPop.getFittest().getFitness() + 
                             "\t" + myPop.getMeanFitness() + "\t" + + myPop.getFittest().matchedRules.size()
                             + "\t" + myPop.getMeanRuleSize());
-                    System.out.println("Rule Set: " + myPop.getFittest().matchedRules);
+                    //System.out.println("Rule Set: " + myPop.getFittest().matchedRules);
                     if (GeneticAlgorithmConstants.COEVOLVE_STEP_SIZE) {
-                        System.out.println("Fittest Step Size: " + myPop.getFittest().getFGene(myPop.getFittest().size() - 1));
+                        //System.out.println("Fittest Step Size: " + myPop.getFittest().getFGene(myPop.getFittest().size() - 1));
                     }
                     
                     myPop = algor.evolvePopulation(myPop);
@@ -191,7 +191,7 @@ public class Main {
     }
 
     /**
-     * Method to scale the variable data so that each datapoint falls in the
+     * Method to scale the variable data so that each data point falls in the
      * range of 0-1. This makes use of feature scaling.
      *
      * @param dataSet to scale to appropriate range

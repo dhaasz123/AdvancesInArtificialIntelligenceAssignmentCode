@@ -271,7 +271,7 @@ public class Algorithm {
             variant = rand.nextGaussian() * indiv.getFGene(indiv.size() - 1);
         } else {
             //use fixed step size
-            variant = rand.nextGaussian() * GeneticAlgorithmConstants.STANDARD_DEVIATION;
+            variant = rand.nextGaussian() * GeneticAlgorithmConstants.STEP_SIZE;
         }
 
         if (Math.random() <= 0.5) {
